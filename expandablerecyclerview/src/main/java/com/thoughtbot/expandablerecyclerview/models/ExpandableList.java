@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class ExpandableList {
 
-  public List<? extends ExpandableGroup> groups;
+  public List<? extends LightExpandableGroup> groups;
   public boolean[] expandedGroupIndexes;
 
-  public ExpandableList(List<? extends ExpandableGroup> groups) {
+  public ExpandableList(List<? extends LightExpandableGroup> groups) {
     this.groups = groups;
 
     expandedGroupIndexes = new boolean[groups.size()];
@@ -111,7 +111,7 @@ public class ExpandableList {
    * @return the index of a group within the {@link #getVisibleItemCount()} or 0 if the
    * groups.indexOf cannot find the group
    */
-  public int getFlattenedGroupIndex(ExpandableGroup group) {
+  public int getFlattenedGroupIndex(LightExpandableGroup group) {
     int groupIndex = groups.indexOf(group);
     int runningTotal = 0;
 
@@ -201,7 +201,7 @@ public class ExpandableList {
    * or child position
    * @return the {@link ExpandableGroup} object that contains the listPosition
    */
-  public ExpandableGroup getExpandableGroup(ExpandableListPosition listPosition) {
+  public LightExpandableGroup getExpandableGroup(ExpandableListPosition listPosition) {
     return groups.get(listPosition.groupPos);
   }
 }

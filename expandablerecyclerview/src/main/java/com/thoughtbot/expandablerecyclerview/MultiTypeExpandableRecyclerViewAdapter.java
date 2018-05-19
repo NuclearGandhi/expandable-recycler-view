@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableList;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
+import com.thoughtbot.expandablerecyclerview.models.LightExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupViewHolder, CVH extends ChildViewHolder>
     extends ExpandableRecyclerViewAdapter<GVH, CVH> {
 
-  public MultiTypeExpandableRecyclerViewAdapter(List<? extends ExpandableGroup> groups) {
+  public MultiTypeExpandableRecyclerViewAdapter(List<? extends LightExpandableGroup> groups) {
     super(groups);
   }
 
@@ -46,8 +47,8 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
    * that determines if the list item is a group or a child and calls through
    * to the appropriate implementation of either {@link #onBindGroupViewHolder(GroupViewHolder,
    * int,
-   * ExpandableGroup)}
-   * or {@link #onBindChildViewHolder(ChildViewHolder, int, ExpandableGroup, int)}.
+   * LightExpandableGroup)}
+   * or {@link #onBindChildViewHolder(ChildViewHolder, int, LightExpandableGroup, int)}.
    *
    * @param holder Either the GroupViewHolder or the ChildViewHolder to bind data to
    * @param position The flat position (or index in the list of {@link
@@ -56,7 +57,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     ExpandableListPosition listPos = expandableList.getUnflattenedPosition(position);
-    ExpandableGroup group = expandableList.getExpandableGroup(listPos);
+    LightExpandableGroup group = expandableList.getExpandableGroup(listPos);
     if (isGroup(getItemViewType(position))) {
       onBindGroupViewHolder((GVH) holder, position, group);
 
@@ -81,7 +82,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
   @Override
   public int getItemViewType(int position) {
     ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(position);
-    ExpandableGroup group = expandableList.getExpandableGroup(listPosition);
+    LightExpandableGroup group = expandableList.getExpandableGroup(listPosition);
 
     int viewType = listPosition.type;
     switch (viewType) {
@@ -111,7 +112,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
    * ExpandableListPosition#GROUP} as those are already being used by the adapter
    * </p>
    */
-  public int getChildViewType(int position, ExpandableGroup group, int childIndex) {
+  public int getChildViewType(int position, LightExpandableGroup group, int childIndex) {
     return super.getItemViewType(position);
   }
 
@@ -131,7 +132,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
    * ExpandableListPosition#GROUP} as those are already being used by the adapter
    * </p>
    */
-  public int getGroupViewType(int position, ExpandableGroup group) {
+  public int getGroupViewType(int position, LightExpandableGroup group) {
     return super.getItemViewType(position);
   }
 
