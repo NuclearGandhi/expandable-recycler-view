@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import com.thoughtbot.expandablerecyclerview.listeners.ExpandCollapseListener;
 import com.thoughtbot.expandablerecyclerview.listeners.GroupExpandCollapseListener;
 import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.SimpleExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableList;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
-import com.thoughtbot.expandablerecyclerview.models.LightExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.IExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 import java.util.List;
@@ -27,7 +27,7 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   private OnGroupClickListener groupClickListener;
   private GroupExpandCollapseListener expandCollapseListener;
 
-  public ExpandableRecyclerViewAdapter(List<? extends LightExpandableGroup> groups) {
+  public ExpandableRecyclerViewAdapter(List<? extends IExpandableGroup> groups) {
     this.expandableList = new ExpandableList(groups);
     this.expandCollapseController = new ExpandCollapseController(expandableList, this);
   }
@@ -64,8 +64,8 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
    * that determines if the list item is a group or a child and calls through
    * to the appropriate implementation of either {@link #onBindGroupViewHolder(GroupViewHolder,
    * int,
-   * LightExpandableGroup)}
-   * or {@link #onBindChildViewHolder(ChildViewHolder, int, LightExpandableGroup, int)}.
+   * IExpandableGroup)}
+   * or {@link #onBindChildViewHolder(ChildViewHolder, int, IExpandableGroup, int)}.
    *
    * @param holder Either the GroupViewHolder or the ChildViewHolder to bind data to
    * @param position The flat position (or index in the list of {@link
@@ -74,7 +74,7 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     ExpandableListPosition listPos = expandableList.getUnflattenedPosition(position);
-    LightExpandableGroup group = expandableList.getExpandableGroup(listPos);
+    IExpandableGroup group = expandableList.getExpandableGroup(listPos);
     switch (listPos.type) {
       case ExpandableListPosition.GROUP:
         onBindGroupViewHolder((GVH) holder, position, group);
@@ -115,8 +115,8 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   /**
    * Called when a group is expanded
    *
-   * @param positionStart the flat position of the first child in the {@link ExpandableGroup}
-   * @param itemCount the total number of children in the {@link ExpandableGroup}
+   * @param positionStart the flat position of the first child in the {@link IExpandableGroup}
+   * @param itemCount the total number of children in the {@link IExpandableGroup}
    */
   @Override
   public void onGroupExpanded(int positionStart, int itemCount) {
@@ -137,8 +137,8 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   /**
    * Called when a group is collapsed
    *
-   * @param positionStart the flat position of the first child in the {@link ExpandableGroup}
-   * @param itemCount the total number of children in the {@link ExpandableGroup}
+   * @param positionStart the flat position of the first child in the {@link IExpandableGroup}
+   * @param itemCount the total number of children in the {@link IExpandableGroup}
    */
   @Override
   public void onGroupCollapsed(int positionStart, int itemCount) {
@@ -180,10 +180,10 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   }
 
   /**
-   * @param group the {@link ExpandableGroup} being toggled
+   * @param group the {@link IExpandableGroup} being toggled
    * @return true if the group is expanded, *after* the toggle, false if the group is now collapsed
    */
-  public boolean toggleGroup(LightExpandableGroup group) {
+  public boolean toggleGroup(IExpandableGroup group) {
     return expandCollapseController.toggleGroup(group);
   }
 
@@ -196,10 +196,10 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   }
 
   /**
-   * @param group the {@link ExpandableGroup} being checked for its collapsed state
+   * @param group the {@link IExpandableGroup} being checked for its collapsed state
    * @return true if {@code group} is expanded, false if it is collapsed
    */
-  public boolean isGroupExpanded(LightExpandableGroup group) {
+  public boolean isGroupExpanded(IExpandableGroup group) {
     return expandCollapseController.isGroupExpanded(group);
   }
 
@@ -248,11 +248,11 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
   }
 
   /**
-   * The full list of {@link ExpandableGroup} backing this RecyclerView
+   * The full list of {@link IExpandableGroup} backing this RecyclerView
    *
-   * @return the list of {@link ExpandableGroup} that this object was instantiated with
+   * @return the list of {@link IExpandableGroup} that this object was instantiated with
    */
-  public List<? extends LightExpandableGroup> getGroups() {
+  public List<? extends IExpandableGroup> getGroups() {
     return expandableList.groups;
   }
 
@@ -282,10 +282,10 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
    *
    * @param holder The {@code CVH} to bind data to
    * @param flatPosition the flat position (raw index) in the list at which to bind the child
-   * @param group The {@link ExpandableGroup} that the the child list item belongs to
-   * @param childIndex the index of this child within it's {@link ExpandableGroup}
+   * @param group The {@link IExpandableGroup} that the the child list item belongs to
+   * @param childIndex the index of this child within it's {@link IExpandableGroup}
    */
-  public abstract void onBindChildViewHolder(CVH holder, int flatPosition, LightExpandableGroup group,
+  public abstract void onBindChildViewHolder(CVH holder, int flatPosition, IExpandableGroup group,
       int childIndex);
 
   /**
@@ -296,7 +296,7 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
    *
    * @param holder The {@code GVH} to bind data to
    * @param flatPosition the flat position (raw index) in the list at which to bind the group
-   * @param group The {@link ExpandableGroup} to be used to bind data to this {@link GVH}
+   * @param group The {@link IExpandableGroup} to be used to bind data to this {@link GVH}
    */
-  public abstract void onBindGroupViewHolder(GVH holder, int flatPosition, LightExpandableGroup group);
+  public abstract void onBindGroupViewHolder(GVH holder, int flatPosition, IExpandableGroup group);
 }

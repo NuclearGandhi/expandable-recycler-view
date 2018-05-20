@@ -2,10 +2,10 @@ package com.thoughtbot.expandablerecyclerview;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.ViewGroup;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
+
 import com.thoughtbot.expandablerecyclerview.models.ExpandableList;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
-import com.thoughtbot.expandablerecyclerview.models.LightExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.IExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupViewHolder, CVH extends ChildViewHolder>
     extends ExpandableRecyclerViewAdapter<GVH, CVH> {
 
-  public MultiTypeExpandableRecyclerViewAdapter(List<? extends LightExpandableGroup> groups) {
+  public MultiTypeExpandableRecyclerViewAdapter(List<? extends IExpandableGroup> groups) {
     super(groups);
   }
 
@@ -47,8 +47,8 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
    * that determines if the list item is a group or a child and calls through
    * to the appropriate implementation of either {@link #onBindGroupViewHolder(GroupViewHolder,
    * int,
-   * LightExpandableGroup)}
-   * or {@link #onBindChildViewHolder(ChildViewHolder, int, LightExpandableGroup, int)}.
+   * IExpandableGroup)}
+   * or {@link #onBindChildViewHolder(ChildViewHolder, int, IExpandableGroup, int)}.
    *
    * @param holder Either the GroupViewHolder or the ChildViewHolder to bind data to
    * @param position The flat position (or index in the list of {@link
@@ -57,7 +57,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     ExpandableListPosition listPos = expandableList.getUnflattenedPosition(position);
-    LightExpandableGroup group = expandableList.getExpandableGroup(listPos);
+    IExpandableGroup group = expandableList.getExpandableGroup(listPos);
     if (isGroup(getItemViewType(position))) {
       onBindGroupViewHolder((GVH) holder, position, group);
 
@@ -82,7 +82,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
   @Override
   public int getItemViewType(int position) {
     ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(position);
-    LightExpandableGroup group = expandableList.getExpandableGroup(listPosition);
+    IExpandableGroup group = expandableList.getExpandableGroup(listPosition);
 
     int viewType = listPosition.type;
     switch (viewType) {
@@ -112,7 +112,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
    * ExpandableListPosition#GROUP} as those are already being used by the adapter
    * </p>
    */
-  public int getChildViewType(int position, LightExpandableGroup group, int childIndex) {
+  public int getChildViewType(int position, IExpandableGroup group, int childIndex) {
     return super.getItemViewType(position);
   }
 
@@ -132,12 +132,12 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
    * ExpandableListPosition#GROUP} as those are already being used by the adapter
    * </p>
    */
-  public int getGroupViewType(int position, LightExpandableGroup group) {
+  public int getGroupViewType(int position, IExpandableGroup group) {
     return super.getItemViewType(position);
   }
 
   /**
-   * @param viewType the int corresponding to the viewType of a {@code ExpandableGroup}
+   * @param viewType the int corresponding to the viewType of a {@code IExpandableGroup}
    * @return if a subclasses has *NOT* overridden {@code getGroupViewType} than the viewType for
    * the group is defaulted to {@link ExpandableListPosition#GROUP}
    */
@@ -146,7 +146,7 @@ public abstract class MultiTypeExpandableRecyclerViewAdapter<GVH extends GroupVi
   }
 
   /**
-   * @param viewType the int corresponding to the viewType of a child of a {@code ExpandableGroup}
+   * @param viewType the int corresponding to the viewType of a child of a {@code IExpandableGroup}
    * @return if a subclasses has *NOT* overridden {@code getChildViewType} than the viewType for
    * the child is defaulted to {@link ExpandableListPosition#CHILD}
    */

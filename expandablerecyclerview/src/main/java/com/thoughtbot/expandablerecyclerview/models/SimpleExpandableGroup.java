@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The backing data object for an {@link ExpandableGroup}
+ * The backing data object for an {@link SimpleExpandableGroup}
  */
-public class ExpandableGroup<T extends Parcelable> implements LightExpandableGroup<T>, Parcelable {
+public class SimpleExpandableGroup<T extends Parcelable> implements IExpandableGroup<T>, Parcelable {
     private List<T> items;
 
-    public ExpandableGroup(List<T> items) {
+    public SimpleExpandableGroup(List<T> items) {
         this.items = items;
     }
 
@@ -28,12 +28,12 @@ public class ExpandableGroup<T extends Parcelable> implements LightExpandableGro
 
     @Override
     public String toString() {
-        return "ExpandableGroup{" +
+        return "SimpleExpandableGroup{" +
                 "items=" + items +
                 '}';
     }
 
-    protected ExpandableGroup(Parcel in) {
+    protected SimpleExpandableGroup(Parcel in) {
         byte hasItems = in.readByte();
         int size = in.readInt();
         if (hasItems == 0x01) {
@@ -65,16 +65,16 @@ public class ExpandableGroup<T extends Parcelable> implements LightExpandableGro
     }
 
     @SuppressWarnings("unused")
-    public static final Creator<ExpandableGroup> CREATOR =
-            new Creator<ExpandableGroup>() {
+    public static final Creator<SimpleExpandableGroup> CREATOR =
+            new Creator<SimpleExpandableGroup>() {
                 @Override
-                public ExpandableGroup createFromParcel(Parcel in) {
-                    return new ExpandableGroup(in);
+                public SimpleExpandableGroup createFromParcel(Parcel in) {
+                    return new SimpleExpandableGroup(in);
                 }
 
                 @Override
-                public ExpandableGroup[] newArray(int size) {
-                    return new ExpandableGroup[size];
+                public SimpleExpandableGroup[] newArray(int size) {
+                    return new SimpleExpandableGroup[size];
                 }
             };
 }

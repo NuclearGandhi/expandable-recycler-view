@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class ExpandableList {
 
-  public List<? extends LightExpandableGroup> groups;
+  public List<? extends IExpandableGroup> groups;
   public boolean[] expandedGroupIndexes;
 
-  public ExpandableList(List<? extends LightExpandableGroup> groups) {
+  public ExpandableList(List<? extends IExpandableGroup> groups) {
     this.groups = groups;
 
     expandedGroupIndexes = new boolean[groups.size()];
@@ -28,7 +28,7 @@ public class ExpandableList {
   }
 
   /**
-   * @param group the index of the {@link ExpandableGroup} in the full collection {@link #groups}
+   * @param group the index of the {@link IExpandableGroup} in the full collection {@link #groups}
    * @return the number of visible row items for the particular group. If the group is collapsed,
    * return 1 for the group header. If the group is expanded return total number of children in the
    * group + 1 for the group header
@@ -107,11 +107,11 @@ public class ExpandableList {
   }
 
   /**
-   * @param group an {@link ExpandableGroup} within {@link #groups}
+   * @param group an {@link IExpandableGroup} within {@link #groups}
    * @return the index of a group within the {@link #getVisibleItemCount()} or 0 if the
    * groups.indexOf cannot find the group
    */
-  public int getFlattenedGroupIndex(LightExpandableGroup group) {
+  public int getFlattenedGroupIndex(IExpandableGroup group) {
     int groupIndex = groups.indexOf(group);
     int runningTotal = 0;
 
@@ -155,7 +155,7 @@ public class ExpandableList {
    * Converts the details of a child's position to a flat list position.
    *
    * @param groupIndex The index of a group within {@link #groups}
-   * @param childIndex the index of a child within it's {@link ExpandableGroup}
+   * @param childIndex the index of a child within it's {@link IExpandableGroup}
    * @return The flat list position for the given child
    */
   public int getFlattenedChildIndex(int groupIndex, int childIndex) {
@@ -193,15 +193,15 @@ public class ExpandableList {
   }
 
   /**
-   * Translates either a group pos or a child pos to an {@link ExpandableGroup}.
+   * Translates either a group pos or a child pos to an {@link IExpandableGroup}.
    * If the {@link ExpandableListPosition} is a child position, it returns the {@link
-   * ExpandableGroup} it belongs to
+   * IExpandableGroup} it belongs to
    *
    * @param listPosition a {@link ExpandableListPosition} representing either a group position
    * or child position
-   * @return the {@link ExpandableGroup} object that contains the listPosition
+   * @return the {@link IExpandableGroup} object that contains the listPosition
    */
-  public LightExpandableGroup getExpandableGroup(ExpandableListPosition listPosition) {
+  public IExpandableGroup getExpandableGroup(ExpandableListPosition listPosition) {
     return groups.get(listPosition.groupPos);
   }
 }

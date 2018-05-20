@@ -1,19 +1,19 @@
 package com.thoughtbot.expandablerecyclerview.listeners;
 
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
-import com.thoughtbot.expandablerecyclerview.models.LightExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.SimpleExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.IExpandableGroup;
 
 public interface GroupExpandCollapseListener {
 
   /**
    * Called when a group is expanded
-   * @param group the {@link ExpandableGroup} being expanded
+   * @param group the {@link IExpandableGroup} being expanded
    */
-  void onGroupExpanded(LightExpandableGroup group);
+  void onGroupExpanded(IExpandableGroup group);
 
   /**
    * Called when a group is collapsed
-   * @param group the {@link ExpandableGroup} being collapsed
+   * @param group the {@link IExpandableGroup} being collapsed
    */
-  void onGroupCollapsed(LightExpandableGroup group);
+  void onGroupCollapsed(IExpandableGroup group);
 }
