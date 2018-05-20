@@ -44,7 +44,7 @@ public class SimpleExpandableGroup<T extends Parcelable> implements IExpandableG
         byte hasItems = in.readByte();
         int size = in.readInt();
         if (hasItems == 0x01) {
-            items = new ArrayList<T>(size);
+            items = new ArrayList<>(size);
             Class<?> type = (Class<?>) in.readSerializable();
             in.readList(items, type.getClassLoader());
         } else {

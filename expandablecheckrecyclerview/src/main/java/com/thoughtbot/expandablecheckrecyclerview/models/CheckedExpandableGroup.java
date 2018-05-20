@@ -1,7 +1,9 @@
 package com.thoughtbot.expandablecheckrecyclerview.models;
 
 import android.os.Parcel;
+
 import com.thoughtbot.expandablerecyclerview.models.SimpleExpandableGroup;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,50 +12,50 @@ import java.util.List;
  */
 public abstract class CheckedExpandableGroup extends SimpleExpandableGroup {
 
-  public boolean[] selectedChildren;
+    private boolean[] selectedChildren;
 
-  public CheckedExpandableGroup(String title, List items) {
-    super(title, items);
-    selectedChildren = new boolean[items.size()];
-    for (int i = 0; i < items.size(); i++) {
-      selectedChildren[i] = false;
+    CheckedExpandableGroup(String title, List items) {
+        super(title, items);
+        selectedChildren = new boolean[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            selectedChildren[i] = false;
+        }
     }
-  }
 
-  public void checkChild(int childIndex) {
-    selectedChildren[childIndex] = true;
-  }
-
-  public void unCheckChild(int childIndex) {
-    selectedChildren[childIndex] = false;
-  }
-
-  public boolean isChildChecked(int childIndex) {
-    return selectedChildren[childIndex];
-  }
-
-  public void clearSelections() {
-    if (selectedChildren != null) {
-      Arrays.fill(selectedChildren, false);
+    void checkChild(int childIndex) {
+        selectedChildren[childIndex] = true;
     }
-  }
 
-  protected CheckedExpandableGroup(Parcel in) {
-    super(in);
-    selectedChildren = in.createBooleanArray();
-  }
+    void unCheckChild(int childIndex) {
+        selectedChildren[childIndex] = false;
+    }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    super.writeToParcel(dest, flags);
-    dest.writeBooleanArray(selectedChildren);
-  }
+    public boolean isChildChecked(int childIndex) {
+        return selectedChildren[childIndex];
+    }
 
-  @Override
-  public int describeContents() {
-    return 0;
-  }
+    public void clearSelections() {
+        if (selectedChildren != null) {
+            Arrays.fill(selectedChildren, false);
+        }
+    }
 
-  public abstract void onChildClicked(int childIndex, boolean checked);
+    CheckedExpandableGroup(Parcel in) {
+        super(in);
+        selectedChildren = in.createBooleanArray();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeBooleanArray(selectedChildren);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public abstract void onChildClicked(int childIndex, boolean checked);
 
 }

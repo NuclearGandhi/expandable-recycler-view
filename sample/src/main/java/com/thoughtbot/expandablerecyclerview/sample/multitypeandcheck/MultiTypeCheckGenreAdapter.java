@@ -32,8 +32,8 @@ public class MultiTypeCheckGenreAdapter
 
     private static final String CHECKED_STATE_MAP = "child_check_controller_checked_state_map";
 
-    public static final int FAVORITE_VIEW_TYPE = 3;
-    public static final int ARTIST_VIEW_TYPE = 4;
+    private static final int FAVORITE_VIEW_TYPE = 3;
+    private static final int ARTIST_VIEW_TYPE = 4;
 
     private ChildCheckController childCheckController;
     private OnCheckChildClickListener childClickListener;

@@ -21,7 +21,7 @@ import static android.view.LayoutInflater.from;
 public class MultiTypeGenreAdapter
         extends MultiTypeExpandableRecyclerViewAdapter<GenreViewHolder, ChildViewHolder> {
 
-    public static final int FAVORITE_VIEW_TYPE = 3;
+    private static final int FAVORITE_VIEW_TYPE = 3;
     public static final int ARTIST_VIEW_TYPE = 4;
 
     public MultiTypeGenreAdapter(List<Genre> groups) {

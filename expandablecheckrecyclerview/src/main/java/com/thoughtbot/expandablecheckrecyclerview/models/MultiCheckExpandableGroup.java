@@ -1,6 +1,7 @@
 package com.thoughtbot.expandablecheckrecyclerview.models;
 
 import android.os.Parcel;
+
 import java.util.List;
 
 /**
@@ -9,44 +10,44 @@ import java.util.List;
  */
 public class MultiCheckExpandableGroup extends CheckedExpandableGroup {
 
-  public MultiCheckExpandableGroup(String title, List items) {
-    super(title, items);
-  }
-
-  @Override
-  public void onChildClicked(int childIndex, boolean checked) {
-    if (checked) {
-      checkChild(childIndex);
-    } else {
-      unCheckChild(childIndex);
+    protected MultiCheckExpandableGroup(String title, List items) {
+        super(title, items);
     }
-  }
 
-  protected MultiCheckExpandableGroup(Parcel in) {
-    super(in);
-  }
-
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    super.writeToParcel(dest, flags);
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @SuppressWarnings("unused")
-  public static final Creator<MultiCheckExpandableGroup> CREATOR =
-      new Creator<MultiCheckExpandableGroup>() {
-        @Override
-        public MultiCheckExpandableGroup createFromParcel(Parcel in) {
-          return new MultiCheckExpandableGroup(in);
+    @Override
+    public void onChildClicked(int childIndex, boolean checked) {
+        if (checked) {
+            checkChild(childIndex);
+        } else {
+            unCheckChild(childIndex);
         }
+    }
 
-        @Override
-        public MultiCheckExpandableGroup[] newArray(int size) {
-          return new MultiCheckExpandableGroup[size];
-        }
-      };
+    private MultiCheckExpandableGroup(Parcel in) {
+        super(in);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    public static final Creator<MultiCheckExpandableGroup> CREATOR =
+            new Creator<MultiCheckExpandableGroup>() {
+                @Override
+                public MultiCheckExpandableGroup createFromParcel(Parcel in) {
+                    return new MultiCheckExpandableGroup(in);
+                }
+
+                @Override
+                public MultiCheckExpandableGroup[] newArray(int size) {
+                    return new MultiCheckExpandableGroup[size];
+                }
+            };
 }
