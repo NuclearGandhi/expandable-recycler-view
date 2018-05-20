@@ -10,10 +10,17 @@ import java.util.List;
  * The backing data object for an {@link SimpleExpandableGroup}
  */
 public class SimpleExpandableGroup<T extends Parcelable> implements IExpandableGroup<T>, Parcelable {
+
+    private String title;
     private List<T> items;
 
-    public SimpleExpandableGroup(List<T> items) {
+    public SimpleExpandableGroup(String title, List<T> items) {
+        this.title = title;
         this.items = items;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.thoughtbot.expandablerecyclerview.sample;
 
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.SimpleExpandableGroup;
 import java.util.List;
 
-public class Genre extends ExpandableGroup<Artist> {
+public class Genre extends SimpleExpandableGroup<Artist> {
 
   private int iconResId;
 

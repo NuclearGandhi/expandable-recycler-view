@@ -1,14 +1,14 @@
 package com.thoughtbot.expandablecheckrecyclerview.models;
 
 import android.os.Parcel;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.SimpleExpandableGroup;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * An extension of ExpandableGroup that holds onto the checked state of it's children
+ * An extension of SimpleExpandableGroup that holds onto the checked state of it's children
  */
-public abstract class CheckedExpandableGroup extends ExpandableGroup {
+public abstract class CheckedExpandableGroup extends SimpleExpandableGroup {
 
   public boolean[] selectedChildren;
 

@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnCheckChildClickListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildCheckChangedListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildrenCheckStateChangedListener;
 import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
 import com.thoughtbot.expandablecheckrecyclerview.viewholders.CheckableChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
+import com.thoughtbot.expandablerecyclerview.models.IExpandableGroup;
+import com.thoughtbot.expandablerecyclerview.models.SimpleExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +41,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
   }
 
   @Override
-  public void onBindChildViewHolder(CCVH holder, int flatPosition, ExpandableGroup group,
+  public void onBindChildViewHolder(CCVH holder, int flatPosition, IExpandableGroup group,
       int childIndex) {
     ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPosition);
     holder.onBindViewHolder(flatPosition, childCheckController.isChildChecked(listPosition));
@@ -108,7 +111,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
    *
    * @param checked the desired check state, true will check the item, false will uncheck it if
    * possible
-   * @param groupIndex the index of the {@code ExpandableGroup} within {@code getGroups()}
+   * @param groupIndex the index of the {@code SimpleExpandableGroup} within {@code getGroups()}
    * @param childIndex the index of the child within it's group
    */
   public void checkChild(boolean checked, int groupIndex, int childIndex) {
@@ -127,7 +130,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
 
     //only update the child views that are visible (i.e. their group is expanded)
     for (int i = 0; i < getGroups().size(); i++) {
-      ExpandableGroup group = getGroups().get(i);
+      SimpleExpandableGroup group = (SimpleExpandableGroup) getGroups().get(i);
       if (isGroupExpanded(group)) {
         notifyItemRangeChanged(expandableList.getFlattenedFirstChildIndex(i), group.getItemCount());
       }
