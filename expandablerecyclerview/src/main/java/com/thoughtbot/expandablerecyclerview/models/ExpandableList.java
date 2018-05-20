@@ -28,9 +28,7 @@ public class ExpandableList {
     }
 
     private void reset() {
-        expandedGroupIndexes = new boolean[
-                groups != null ? groups.size() : 0
-                ];
+        expandedGroupIndexes = new boolean[getGroupCount()];
         for (int i = 0; i < expandedGroupIndexes.length; i++) {
             expandedGroupIndexes[i] = false;
         }
@@ -55,7 +53,7 @@ public class ExpandableList {
      */
     public int getVisibleItemCount() {
         int count = 0;
-        for (int i = 0; i < groups.size(); i++) {
+        for (int i = 0; i < getGroupCount(); i++) {
             count += numberOfVisibleItemsInGroup(i);
         }
         return count;
@@ -76,7 +74,7 @@ public class ExpandableList {
     public ExpandableListPosition getUnflattenedPosition(int flPos) {
         int groupItemCount;
         int adapted = flPos;
-        for (int i = 0; i < groups.size(); i++) {
+        for (int i = 0; i < getGroupCount(); i++) {
             groupItemCount = numberOfVisibleItemsInGroup(i);
             if (adapted == 0) {
                 return ExpandableListPosition.obtain(ExpandableListPosition.GROUP, i, -1, flPos);
@@ -212,5 +210,9 @@ public class ExpandableList {
      */
     public IExpandableGroup getExpandableGroup(ExpandableListPosition listPosition) {
         return groups.get(listPosition.groupPos);
+    }
+
+    private int getGroupCount() {
+        return groups != null ? groups.size() : 0;
     }
 }
