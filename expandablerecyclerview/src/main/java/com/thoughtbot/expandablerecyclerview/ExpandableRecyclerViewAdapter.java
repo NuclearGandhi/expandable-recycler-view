@@ -33,6 +33,11 @@ public abstract class ExpandableRecyclerViewAdapter<GVH extends GroupViewHolder,
         this.expandCollapseController = new ExpandCollapseController(expandableList, this);
     }
 
+    public void setData(List<? extends IExpandableGroup> groups) {
+        expandableList.setData(groups);
+        notifyDataSetChanged();
+    }
+
     /**
      * Implementation of Adapter.onCreateViewHolder(ViewGroup, int)
      * that determines if the list item is a group or a child and calls through

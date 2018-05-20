@@ -37,7 +37,7 @@ public class ExpandActivity extends AppCompatActivity {
             ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
         }
 
-        adapter = new GenreAdapter(makeGenres());
+        adapter = new GenreAdapter(null);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -60,5 +60,11 @@ public class ExpandActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         adapter.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.setData(makeGenres());
     }
 }
